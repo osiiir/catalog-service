@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osir.catalogservice.mapper.DishMapper">
+
+    <!-- useGeneratedKeys:使用自增主键 keyProperty:封装到属性名为id的属性中 -->
+    <insert id="insertDish" useGeneratedKeys="true" keyProperty="id">
+        insert into dish
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name!=null and name!=''">name,</if>
+            <if test="categoryId!=null">category_id,</if>
+            <if test="price!=null">price,</if>
+            <if test="image!=null and image!=''">image,</if>
+            <if test="description!=null and description!=''">description,</if>
+            <if test="status!=null">status,</if>
+            <if test="createTime!=null">create_time,</if>
+            <if test="updateTime!=null">update_time,</if>
+            <if test="createUser!=null and createUser!=''">create_user,</if>
+            <if test="updateUser!=null and updateUser!=''">update_user,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name!=null and name!=''">#{name},</if>
+            <if test="categoryId!=null">#{categoryId},</if>
+            <if test="price!=null">#{price},</if>
+            <if test="image!=null and image!=''">#{image},</if>
+            <if test="description!=null and description!=''">#{description},</if>
+            <if test="status!=null">#{status},</if>
+            <if test="createTime!=null">#{createTime},</if>
+            <if test="updateTime!=null">#{updateTime},</if>
+            <if test="createUser!=null and createUser!=''">#{createUser},</if>
+            <if test="updateUser!=null and updateUser!=''">#{updateUser},</if>
+        </trim>
+
+    </insert>
+
+    <update id="updateDishStatus">
+        update dish set status = #{status} where id = #{id}
+    </update>
+
+    <update id="updateDish">
+        update dish
+        <set>
+            <if test="name!=null and name!=''">name=#{name},</if>
+            <if test="categoryId!=null">category_id=#{categoryId},</if>
+            <if test="price!=null">price=#{price},</if>
+            <if test="image!=null and image!=''">image=#{image},</if>
+            <if test="description!=null">description=#{description},</if>
+            <if test="status!=null">status=#{status},</if>
+            <if test="updateTime!=null">update_time=#{updateTime},</if>
+            <if test="updateUser!=null and updateUser!=''">update_user=#{updateUser},</if>
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+
+    <delete id="deleteBatch">
+        delete from dish where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="getPage" resultType="com.osir.takeoutpojo.vo.DishVO">
+        select d.*, c.name categoryName from dish d left join category c on d.category_id = c.id
+        <where>
+            <if test="name!=null and name!=''">d.name like concat('%',#{name},'%')</if>
+            <if test="categoryId!=null">and d.category_id=#{categoryId}</if>
+            <if test="status!=null">and d.status=#{status}</if>
+        </where>
+        order by d.create_time desc
+    </select>
+    <select id="getById" resultType="com.osir.takeoutpojo.vo.DishVO">
+        select d.*, c.name categoryName from dish d
+        left join category c on d.category_id = c.id
+        where d.id=#{id}
+    </select>
+
+    <select id="list" resultType="com.osir.takeoutpojo.entity.Dish">
+        select * from dish
+        <where>
+            <if test="categoryId!=null">category_id = #{categoryId}</if>
+            <if test="status!=null">and status = #{status}</if>
+        </where>
+    </select>
+
+    <select id="countByMap" resultType="java.lang.Integer">
+        select count(id) from dish
+        <where>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
