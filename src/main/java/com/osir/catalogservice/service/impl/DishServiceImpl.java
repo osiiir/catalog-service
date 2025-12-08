@@ -10,6 +10,7 @@ import com.osir.catalogservice.mapper.DishMapper;
 import com.osir.catalogservice.mapper.SetmealDishMapper;
 import com.osir.catalogservice.mapper.SetmealMapper;
 import com.osir.catalogservice.service.DishService;
+import com.osir.commonservice.utils.LoginUserContext;
 import com.osir.takeoutpojo.constant.ErrorMessageConstant;
 import com.osir.takeoutpojo.dto.DishDTO;
 import com.osir.takeoutpojo.dto.DishPageQueryDTO;
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Service
@@ -86,6 +88,7 @@ public class DishServiceImpl implements DishService {
         return dishVO;
     }
 
+
     /**
      * 菜品起售停售
      * @param status
@@ -96,8 +99,7 @@ public class DishServiceImpl implements DishService {
         if(Objects.equals(status, StatusConstant.DISABLE)){
             List<Long> setmealIds = setmealDishMapper.getSetmealIdsByDishId(id);
             if (setmealIds != null && !setmealIds.isEmpty()) {
-                //TODO Need UserId
-                setmealMapper.updateSetmealStatus(StatusConstant.DISABLE, setmealIds, LocalDateTime.now(), 0L/*BaseContext.getCurrentId()*/);
+                setmealMapper.updateSetmealStatus(StatusConstant.DISABLE, setmealIds, LocalDateTime.now(), LoginUserContext.getUserId());
             }
         }
         Dish dish = new Dish();
@@ -184,6 +186,11 @@ public class DishServiceImpl implements DishService {
         }
 
         return dishVOList;
+    }
+
+    @Override
+    public Integer countByMap(Map map) {
+        return dishMapper.countByMap(map);
     }
 
 }

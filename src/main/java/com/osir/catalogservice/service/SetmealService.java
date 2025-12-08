@@ -9,6 +9,7 @@ import com.osir.takeoutpojo.vo.DishItemVO;
 import com.osir.takeoutpojo.vo.SetmealVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SetmealService {
 
@@ -65,4 +66,10 @@ public interface SetmealService {
      */
     List<DishItemVO> getDishItemById(Long id);
 
+    /**
+     * 根据条件统计套餐数量
+     * @param map
+     * @return
+     */
+    Integer countByMap(Map map);
 }

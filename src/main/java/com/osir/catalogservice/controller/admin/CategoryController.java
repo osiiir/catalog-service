@@ -20,7 +20,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/admin/category")
+@RequestMapping("/catalog/admin/category")
 @Slf4j
 public class CategoryController {
 

@@ -16,7 +16,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController("userCategoryController")
-@RequestMapping("/user/category")
+@RequestMapping("/catalog/user/category")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -28,7 +28,7 @@ public class CategoryController {
      */
     @GetMapping("/list")
     @Cacheable(cacheNames = "categoryCache")
-    public Result list(@RequestParam("type") Integer type) {
+    public Result list(@RequestParam(value = "type", required = false) Integer type) {
         Category category = new Category();
         category.setStatus(StatusConstant.ENABLE);
         if(type!=null) category.setType(type);

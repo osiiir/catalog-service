@@ -8,6 +8,7 @@ import com.osir.catalogservice.mapper.DishMapper;
 import com.osir.catalogservice.mapper.SetmealDishMapper;
 import com.osir.catalogservice.mapper.SetmealMapper;
 import com.osir.catalogservice.service.SetmealService;
+import com.osir.commonservice.utils.LoginUserContext;
 import com.osir.takeoutpojo.constant.ErrorMessageConstant;
 import com.osir.takeoutpojo.dto.SetmealDTO;
 import com.osir.takeoutpojo.dto.SetmealPageQueryDTO;
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Service
@@ -54,8 +56,7 @@ public class SetmealServiceImpl implements SetmealService {
                 }
             }
         }
-        //TODO Need UserId
-        setmealMapper.updateSetmealStatus(status, ids, LocalDateTime.now(), 0L/*BaseContext.getCurrentId()*/);
+        setmealMapper.updateSetmealStatus(status, ids, LocalDateTime.now(), LoginUserContext.getUserId());
     }
 
     /**
@@ -155,6 +156,11 @@ public class SetmealServiceImpl implements SetmealService {
      */
     public List<DishItemVO> getDishItemById(Long id) {
         return setmealMapper.getDishItemBySetmealId(id);
+    }
+
+    @Override
+    public Integer countByMap(Map map) {
+        return setmealMapper.countByMap(map);
     }
 
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/admin/setmeal")
+@RequestMapping("/catalog/admin/setmeal")
 public class SetmealController {
 
     private final SetmealService setmealService;
@@ -31,7 +31,7 @@ public class SetmealController {
     public Result startOrStop(@PathVariable Integer status, Long id) {
         log.info("批量起售停售：{}", id);
         setmealService.startOrStop(status, id);
-        return null;
+        return Result.success();
     }
 
     /**

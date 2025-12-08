@@ -3,6 +3,7 @@ package com.osir.catalogservice.aspect;
 import com.osir.catalogservice.annotation.AutoFill;
 import com.osir.catalogservice.constant.AutoFillConstant;
 import com.osir.catalogservice.enumeration.OperationType;
+import com.osir.commonservice.utils.LoginUserContext;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -44,8 +45,7 @@ public class AutoFillAspect {
         int pos = annotation.pos();
         // 要填充的信息
         LocalDateTime time = LocalDateTime.now();
-        // TODO Need UserId
-        Long id = 0L/*BaseContext.getCurrentId()*/;
+        Long id = LoginUserContext.getUserId();
 
         // 获取参数对象列表
         Object[] args = joinPoint.getArgs();

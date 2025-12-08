@@ -1,7 +1,5 @@
 package com.osir.catalogservice.service;
 
-
-
 import com.osir.takeoutpojo.dto.DishDTO;
 import com.osir.takeoutpojo.dto.DishPageQueryDTO;
 import com.osir.takeoutpojo.entity.Dish;
@@ -9,6 +7,7 @@ import com.osir.takeoutpojo.result.PageResult;
 import com.osir.takeoutpojo.vo.DishVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DishService {
     /**
@@ -63,4 +62,11 @@ public interface DishService {
      * @return
      */
     List<DishVO> listWithFlavor(Dish dish);
+
+    /**
+     * 根据条件统计菜品数量
+     * @param map
+     * @return
+     */
+    Integer countByMap(Map map);
 }

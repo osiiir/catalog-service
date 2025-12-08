@@ -14,7 +14,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController("userSetmealController")
-@RequestMapping("/user/setmeal")
+@RequestMapping("/catalog/user/setmeal")
 public class SetmealController {
 
     private final SetmealService setmealService;

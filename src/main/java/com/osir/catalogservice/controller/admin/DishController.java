@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/admin/dish")
+@RequestMapping("/catalog/admin/dish")
 public class DishController {
 
     private final DishService dishService;
@@ -43,7 +43,7 @@ public class DishController {
      * @return
      */
     @GetMapping("/page")
-    public Result page(@RequestBody DishPageQueryDTO dishPageQueryDTO){
+    public Result page(DishPageQueryDTO dishPageQueryDTO){
         log.info("分页查询:{}",dishPageQueryDTO);
         PageResult pageResult = dishService.pageQuery(dishPageQueryDTO);
         return Result.success(pageResult);
@@ -69,7 +69,7 @@ public class DishController {
      */
     @PostMapping("/status/{status}")
     @CacheEvict(cacheNames = "dishCache",allEntries = true)
-    public Result startOrStop(@PathVariable Integer status,Long id){
+    public Result startOrStop(@PathVariable Integer status,@RequestParam("id") Long id){
         log.info("菜品起售停售：sta:{},id:{}",status,id);
         dishService.startOrStop(status,id);
         return Result.success();

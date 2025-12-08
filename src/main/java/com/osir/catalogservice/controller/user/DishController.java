@@ -18,7 +18,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController("userDishController")
-@RequestMapping("/user/dish")
+@RequestMapping("/catalog/user/dish")
 @Slf4j
 public class DishController {
 

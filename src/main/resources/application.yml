@@ -1,15 +1,19 @@
 server:
-  port: 8001
+  port: 8002
 
 spring:
   application:
     name: catalog-service
   profiles:
     active: dev
+  config:
+    import: nacos:request_deliver.yml?group=common
   cloud:
     nacos:
       server-addr: localhost:8848
       config:
+        # 指定命名空间
+        namespace: dev
         import-check:
           enabled: false
   datasource:
@@ -17,6 +21,13 @@ spring:
     url: ${osir.datasource.url}
     username: ${osir.datasource.username}
     password: ${osir.datasource.password}
+  # 配置redis数据源
+  data:
+    redis:
+      host: ${osir.redis.host}
+      database: ${osir.redis.database}
+      password: ${osir.redis.password}
+      port: ${osir.redis.port}
 
 # mybatis相关配置
 mybatis:
