@@ -6,9 +6,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Import;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Import(FeignHeaderConfig.class) // 引入feign配置类,传递头信息
 @EnableDiscoveryClient
+@EnableTransactionManagement // 事务
 @SpringBootApplication
 public class CatalogServiceApplication {
 

@@ -6,6 +6,7 @@ import com.osir.takeoutpojo.entity.Setmeal;
 import com.osir.takeoutpojo.result.Result;
 import com.osir.takeoutpojo.vo.DishItemVO;
 import lombok.RequiredArgsConstructor;
+import org.apache.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
